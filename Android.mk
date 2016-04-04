@@ -57,11 +57,22 @@ munge_host_jar := $(HOST_OUT)/framework/munge-host.jar
 munge_zip_location := lib/build/munge.jar
 
 #
+# Target-side Dalvik build
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := # None. Everything is post-processed by munge. See below.
+LOCAL_MODULE := guice
+LOCAL_STATIC_JAVA_LIBRARIES := guava jsr330
+LOCAL_MODULE_CLASS := JAVA_LIBRARIES
+munge_src_arguments := $(guice_src_files)
+include $(LOCAL_PATH)/AndroidCallMunge.mk
+include $(BUILD_STATIC_JAVA_LIBRARY)
+
+
+#
 # Host-side Java build
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := # None. Everything is post-processed by munge. See below.
 LOCAL_MODULE := guice-host
-LOCAL_MODULE_TAGS := optional
 LOCAL_STATIC_JAVA_LIBRARIES := guavalib jsr330-host
 
 munge_src_arguments := $(guice_src_files)
@@ -74,7 +85,6 @@ include $(BUILD_HOST_JAVA_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := # None. Everything is post-processed by munge. See below.
 LOCAL_MODULE := guice-hostdex
-LOCAL_MODULE_TAGS := optional
 LOCAL_STATIC_JAVA_LIBRARIES := guava-hostdex jsr330-hostdex
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 munge_src_arguments := $(guice_src_files)
@@ -101,7 +111,6 @@ munge_zipped_src_files := $(filter-out $(munge_zipped_unsupported_files),$(munge
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := # None because we get everything by unzipping the munge jar first.
 LOCAL_MODULE := munge-host
-LOCAL_MODULE_TAGS := optional
 LOCAL_JAVA_LIBRARIES := junit
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 # Unzip munge and build it
