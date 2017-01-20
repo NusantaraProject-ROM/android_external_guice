@@ -89,7 +89,7 @@ LOCAL_STATIC_JAVA_LIBRARIES := guava-hostdex jsr330-hostdex
 LOCAL_MODULE_CLASS := JAVA_LIBRARIES
 munge_src_arguments := $(guice_src_files)
 include $(LOCAL_PATH)/AndroidCallMunge.mk
-include $(BUILD_HOST_DALVIK_JAVA_LIBRARY)
+include $(BUILD_HOST_DALVIK_STATIC_JAVA_LIBRARY)
 
 ###################################
 #           Munge                 #
