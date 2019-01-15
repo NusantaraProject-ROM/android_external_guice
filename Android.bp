@@ -85,7 +85,7 @@ genrule {
     ],
     cmd: "for src in $(in); do " +
         "  mkdir -p $$(dirname $(genDir)/$${src}) && " +
-        "  $(location guice_munge) -DNO_AOP $${src} > $(genDir)/$${src}; " +
+        "  $(location guice_munge) -DNO_AOP $${src} > $(genDir)/$${src} || exit 1; " +
         " done && " +
         " $(location soong_zip) -o $(out) -C $(genDir) -D $(genDir)",
 }
