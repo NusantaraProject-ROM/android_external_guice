@@ -58,7 +58,7 @@ genrule {
     name: "guice_munge_srcjar",
     out: ["guice_munge.srcjar"],
     srcs: ["lib/build/munge.jar"],
-    cmd: "zip -q --temp-path $${TMPDIR:-/tmp} $(in) -O $(out) -d MungeTask.java",
+    cmd: "zip -q --temp-path $${TMPDIR:-/tmp} $(in) -O $(out) -d MungeTask.java *.class",
 }
 
 genrule {
